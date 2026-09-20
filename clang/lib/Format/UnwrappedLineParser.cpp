@@ -1934,7 +1934,12 @@ void UnwrappedLineParser::parseStructuralElement(
       break;
     case tok::semi:
       nextToken();
-      addUnwrappedLine();
+
+      if (!(Style.BreakKeywordAndCaseLabelOneLine &&
+            Previous->is(tok::kw_break) &&
+            FormatTok->isOneOf(tok::kw_case, tok::kw_default))) {
+        addUnwrappedLine();
+      }
       return;
     case tok::r_brace:
       addUnwrappedLine();

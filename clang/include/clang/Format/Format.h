@@ -3250,6 +3250,20 @@ struct FormatStyle {
   /// \version 3.3
   bool IndentCaseLabels;
 
+  /// Keep the break keyword and the following case label on the same line.
+  ///
+  /// \code
+  ///    false:                         true:
+  ///    switch (foo) {                 switch (foo) {
+  ///      case 1:                        case 1:
+  ///        bar();                        bar();
+  ///        break;                        break; case 2:
+  ///      case 2:                         bar();
+  ///        bar();                       }
+  ///    }
+  /// \endcode
+  bool BreakKeywordAndCaseLabelOneLine;
+
   /// If `true`, clang-format will indent the body of an `export { ... }`
   /// block. This doesn't affect the formatting of anything else related to
   /// exported declarations.
