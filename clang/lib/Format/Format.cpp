@@ -1401,7 +1401,7 @@ template <> struct MappingTraits<FormatStyle> {
     IO.mapOptional("IndentAccessModifiers", Style.IndentAccessModifiers);
     IO.mapOptional("IndentCaseBlocks", Style.IndentCaseBlocks);
     IO.mapOptional("IndentCaseLabels", Style.IndentCaseLabels);
-    IO.mapOptional("BreakKeywordAndCaseLabelOneLine", Style.BreakKeywordAndCaseLabelOneLine);
+    IO.mapOptional("KwBreakBeforeCaseLabel", Style.KwBreakBeforeCaseLabel);
     IO.mapOptional("IndentExportBlock", Style.IndentExportBlock);
     IO.mapOptional("IndentExternBlock", Style.IndentExternBlock);
     IO.mapOptional("IndentGotoLabels", Style.IndentGotoLabels);

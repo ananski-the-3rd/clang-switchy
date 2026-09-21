@@ -1935,9 +1935,7 @@ void UnwrappedLineParser::parseStructuralElement(
     case tok::semi:
       nextToken();
 
-      if (!(Style.BreakKeywordAndCaseLabelOneLine &&
-            Previous->is(tok::kw_break) &&
-            FormatTok->isOneOf(tok::kw_case, tok::kw_default))) {
+      if (!isKwBreakBeforeCaseLabel(*FormatTok)) {
         addUnwrappedLine();
       }
       return;
@@ -2982,6 +2980,21 @@ bool UnwrappedLineParser::isBlockBegin(const FormatToken &Tok) const {
   // Tok.isOneOf(tok::l_brace, TT_MacroBlockBegin) work.
   return Style.isVerilog() ? Keywords.isVerilogBegin(Tok)
                            : Tok.is(tok::l_brace);
+}
+
+/// Returns whether \c Tok is a case label preceded by a break statement.
+bool UnwrappedLineParser::isKwBreakBeforeCaseLabel(const FormatToken &Tok) const {
+  if (!Style.KwBreakBeforeCaseLabel ||
+      !Tok.isOneOf(tok::kw_case, tok::kw_default)) {
+    return false;
+  }
+
+  const FormatToken *Previous = Tok.Previous;
+
+  while (Previous && Previous->is(tok::semi))
+    Previous = Previous->Previous;
+
+  return Previous && Previous->is(tok::kw_break);
 }
 
 FormatToken *UnwrappedLineParser::parseIfThenElse(IfStmtKind *IfKind,

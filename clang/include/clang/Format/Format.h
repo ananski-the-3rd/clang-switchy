@@ -3262,7 +3262,7 @@ struct FormatStyle {
   ///        bar();                       }
   ///    }
   /// \endcode
-  bool BreakKeywordAndCaseLabelOneLine;
+  bool KwBreakBeforeCaseLabel;
 
   /// If `true`, clang-format will indent the body of an `export { ... }`
   /// block. This doesn't affect the formatting of anything else related to

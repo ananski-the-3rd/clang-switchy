@@ -2833,8 +2833,8 @@ TEST_F(FormatTest, FormatsSwitchStatement) {
                "}\n"
                "}",
                Style);
-    
-  Style.BreakKeywordAndCaseLabelOneLine = true;
+
+  Style.KwBreakBeforeCaseLabel = true;
   verifyFormat("switch (n)\n"
                "{\n"
                "  break; case 0:\n"
@@ -2858,6 +2858,49 @@ TEST_F(FormatTest, FormatsSwitchStatement) {
                "}\n"
                "}",
                Style);
+}
+
+TEST_F(FormatTest, FormatsSwitchStatementBreakCase) {
+  FormatStyle Style = getLLVMStyle();
+  Style.IndentCaseLabels = true;
+  Style.KwBreakBeforeCaseLabel = true;
+
+  verifyFormat("switch (n) {\n"
+               "  break; case 0:;\n"
+               "}",
+               Style);
+
+//   verifyFormat("switch (n) {\n"
+//                "  break; case 0: {\n"
+//                "    return false;\n"
+//                "  }\n"
+//                "  break; case 1:\n"
+//                "  break; default: {\n"
+//                "    return true;\n"
+//                "  }\n"
+//                "}",
+//                Style);
+
+//   verifyFormat("switch (n) {\n"
+//                "  break; case 0: {\n"
+//                "    return false;\n"
+//                "  }\n"
+//                "  break; case 1:\n"
+//                "  break; default: {\n"
+//                "    return true;\n"
+//                "  }\n"
+//                "}",
+//                "switch (n) {\n"
+//                "case 0: {\n"
+//                "  return false;\n"
+//                "}\n"
+//                "case 1:\n"
+//                "  break;\n"
+//                "default: {\n"
+//                "  return true;\n"
+//                "}\n"
+//                "}",
+//                Style);
 }
 
 TEST_F(FormatTest, CaseRanges) {
